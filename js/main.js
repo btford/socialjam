@@ -68,7 +68,6 @@ var getMusic = function () {
             
             if (data) {
                 var parsedData = $.parseJSON(data), i;
-                console.log(parsedData);
                 
                 if (typeof parsedData.content === "string") {
                     parsedData.content = [];
@@ -92,7 +91,7 @@ var getMusic = function () {
 var initMusic = function () {
     "use strict";
     var json = {
-        "session": sessionId,
+        "session": sessionId
     };
     
     $.ajax({
@@ -101,8 +100,6 @@ var initMusic = function () {
         data: json,
         success: function (data) {
             var parsedData = $.parseJSON(data), i;
-            
-            console.log(parsedData.data[0]);
             
             if (typeof parsedData.data[0].content !== "object" || 
                 parsedData.data[0].content === null) {

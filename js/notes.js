@@ -121,9 +121,6 @@ var Notes = function (canvas) {
         // Render voice
         voice.draw(ctx, stave);
         
-        console.log(voice);
-        //console.log(ctx);
-        //console.log(formatter);
     };
 
     var renderNice = function (param) {
@@ -160,7 +157,6 @@ var Notes = function (canvas) {
                     
                     var sound = new Audio(src);
                     sound.play();
-                    console.log(src);
                 }
 
                 setTimeout(playNote, 300 * 4 / notes[currentNote].duration);
