@@ -147,7 +147,16 @@ var Notes = function (canvas) {
                 return;
             } else {
                 if (notes[currentNote].key !== "rest") {
-                    var src = "res/" + instrument + "/q/q" + notes[currentNote].key.toUpperCase() + "1.wav";
+                    
+                    if (instrument === undefined) {
+                        instrument = "piano";
+                    }
+                    
+                    var src = "res/" + instrument + "/" + notes[currentNote].key.toUpperCase() + "1.wav";
+                    
+                    if(instrument === "snare") {
+                        src = "res/snare/snare.wav";
+                    }
                     
                     var sound = new Audio(src);
                     sound.play();

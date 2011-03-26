@@ -35,7 +35,9 @@ var sendMyMusic = function () {
         "user": userId,
         "timestamp": timestamp,
         "content": myNotes.getNotes(),
-        "instrument": myNotes.getInstrument()
+        "config": {
+            "instrument": (myNotes.getInstrument() || "piano")
+        }
     };
 
     $.ajax({
@@ -43,7 +45,7 @@ var sendMyMusic = function () {
         type: "POST",
         data: json,
         success: function (data) {
-            $('#result').html("<pre>" + data + "</pre>");
+            //$('#result').html("<pre>" + data + "</pre>");
             //alert('Load was performed.');
         }
     });
@@ -79,7 +81,7 @@ var getMusic = function () {
 
                 timestamp = parsedData.timestamp;
                 broNotes.setNotes(parsedData.content);
-                broNotes.setInstrument(parsedData.instrument || "piano");
+                broNotes.setInstrument(parsedData.config.instrument || "piano");
             }
             
             setTimeout(getMusic, 100);
@@ -90,7 +92,7 @@ var getMusic = function () {
 var initMusic = function () {
     "use strict";
     var json = {
-        "session": sessionId
+        "session": sessionId,
     };
     
     $.ajax({
@@ -102,11 +104,15 @@ var initMusic = function () {
             
             console.log(parsedData.data[0]);
             
-            if (typeof parsedData.data[0].content === "string") {
+            if (typeof parsedData.data[0].content !== "object" || 
+                parsedData.data[0].content === null) {
+                    
                 parsedData.data[0].content = [];
             }
             
-            if (typeof parsedData.data[1].content === "string") {
+            if (typeof parsedData.data[1].content !== "object" || 
+                parsedData.data[1].content === null) {
+                    
                 parsedData.data[1].content = [];
             }
             
@@ -123,14 +129,16 @@ var initMusic = function () {
             
             if (parseInt(parsedData.data[0].userid, 10) === userId) {
                 myNotes.setNotes(parsedData.data[0].content);
-                myNotes.setInstrument(parsedData.data[0].instrument);
+                myNotes.setInstrument(parsedData.data[0].config.instrument || "piano");
+                
                 broNotes.setNotes(parsedData.data[1].content);
-                broNotes.setInstrument(parsedData.data[1].instrument);
+                broNotes.setInstrument(parsedData.data[1].config.instrument || "piano");
             } else {
                 myNotes.setNotes(parsedData.data[1].content);
-                myNotes.setInstrument(parsedData.data[1].instrument);
+                myNotes.setInstrument(parsedData.data[1].config.instrument || "piano");
+                
                 broNotes.setNotes(parsedData.data[0].content);
-                broNotes.setInstrument(parsedData.data[0].instrument);
+                broNotes.setInstrument(parsedData.data[0].config.instrument || "piano");
             }
             
             timestamp = parsedData.timestamp;
@@ -163,6 +171,7 @@ $("#editing > span").click(function () {
 $("#instrument").change(function () {
     "use strict";
     myNotes.setInstrument(this.value);
+    sendMyMusic();
 });
 
 // start the magic
