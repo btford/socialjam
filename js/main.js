@@ -31,7 +31,7 @@ var sendMyMusic = function () {
     "use strict";
     
     var json = {
-        "session": 1,
+        "session": sessionId,
         "user": userId,
         "timestamp": timestamp,
         "content": myNotes.getNotes()
@@ -52,7 +52,7 @@ var getMusic = function () {
     "use strict";
     
     var json = {
-        "session": 1,
+        "session": sessionId,
         "user": userId,
         "timestamp": timestamp
     };
@@ -99,3 +99,6 @@ $("#editing > span").click(function () {
     myNotes.addNote({key: this.id, duration: 4});
     sendMyMusic();
 });
+
+// start the magic
+getMusic();
