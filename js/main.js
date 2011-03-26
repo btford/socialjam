@@ -13,7 +13,6 @@ var SJM = {
 
 //TODO: put this in a closure
 var canvas = $("#can")[0];
-
 var durationIntToStr = function (num) {
     "use strict";
     if (num === 1) {
@@ -30,6 +29,45 @@ var durationIntToStr = function (num) {
 };
 
 var makeRenderableNotes = function (notes) {
+    "use strict";
+    var ren = [], someKey, someDuration, restDuration, totalDuration = 0, i;
+    
+    for (i = 0; i < notes.length; i += 1) {
+        
+        someKey = notes[i].key;
+        someDuration = notes[i].duration;
+        
+        console.log(someDuration);
+        
+        totalDuration += someDuration / 4;
+        
+        if (someKey === "rest") {
+            someKey = "b/4";
+            someDuration = durationIntToStr(someDuration) + "r";
+        } else {
+            someKey = someKey + "/4";
+            someDuration = durationIntToStr(someDuration);
+        }
+        
+        ren.push({key: someKey, duration: someDuration});
+    }
+    
+    console.log(totalDuration);
+    
+    if (totalDuration < 4) {
+        restDuration = 4 - totalDuration;
+        console.log(restDuration);
+        
+        if (restDuration === 3) {
+            ren.push({key: "b/4", duration: "qr"});
+            ren.push({key: "b/4", duration: "hr"});
+        } else {
+            ren.push({key: "b/4", duration: (durationIntToStr(4 / restDuration) + "r")});
+        }
+    }
+    
+    return ren;
+};
 
 var render = function (param) {
     "use strict";
