@@ -17,24 +17,14 @@ var broNotes = new Notes(broCanvas);
 
 //playNice(niceNotes);
 
-$("#play").click(function () {
-    "use strict";
-    myNotes.play();
-});
-
-$("#clear").click(function () {
-    "use strict";
-    myNotes.clear();
-});
-
-$("#editing > span").click(function () {
-    "use strict";
-    myNotes.addNote({key: this.id, duration: 4});
-});
-
 // get user id from query string
-var userId = parseInt(window.location.search.slice(1, 2), 10);
-var sessionId = 1;
+
+var query = window.location.search.slice(1, window.location.search.length);
+
+var querySep = query.indexOf("&");
+
+var userId = parseInt(query.slice(0, querySep), 10);
+var sessionId = parseInt(query.slice(querySep + 1), 10);
 var timestamp = "2011-03-26 00:57:14";
 
 var sendMyMusic = function () {
@@ -42,7 +32,7 @@ var sendMyMusic = function () {
     
     var json = {
         "session": 1,
-        "user": 1,
+        "user": userId,
         "timestamp": timestamp,
         "content": myNotes.getNotes()
     };
@@ -63,7 +53,7 @@ var getMusic = function () {
     
     var json = {
         "session": 1,
-        "user": 1,
+        "user": userId,
         "timestamp": timestamp
     };
 
@@ -72,11 +62,40 @@ var getMusic = function () {
         type: "POST",
         data: json,
         success: function (data) {
-            console.log(data);
             
-            timestamp = data.timestamp;
-            broNotes.setNotes(data.content);
+            if (data) {
+                var parsedData = $.parseJSON(data), i;
+                console.log(parsedData);
+
+                for (i = 0; i < parsedData.content.length; i += 1) {
+                    parsedData.content[i].duration =
+                        parseInt(parsedData.content[i].duration, 10);
+                }
+
+                timestamp = parsedData.timestamp;
+                broNotes.setNotes(parsedData.content);
+            }
+            
+            setTimeout(getMusic, 100);
         }
     });
 };
 
+// Event Handlers
+///////////////////////////////////////////////////////////////////////////////
+$("#play").click(function () {
+    "use strict";
+    myNotes.play();
+});
+
+$("#clear").click(function () {
+    "use strict";
+    myNotes.clear();
+    sendMyMusic();
+});
+
+$("#editing > span").click(function () {
+    "use strict";
+    myNotes.addNote({key: this.id, duration: 4});
+    sendMyMusic();
+});

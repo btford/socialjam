@@ -108,7 +108,6 @@ var Notes = function (canvas) {
         "use strict";
 
         playing = true;
-
         var currentNote = 0, notes, playNote, letters;
 
         notes = n;
@@ -158,6 +157,10 @@ var Notes = function (canvas) {
     that.setNotes = function (newNotes) {
         niceNotes = newNotes;
         that.render();
+    };
+    
+    that.play = function (newNotes) {
+        playNice(niceNotes);
     };
     
     that.render();
