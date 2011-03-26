@@ -108,8 +108,12 @@ var renderNice = function (param) {
     return render(makeRenderableNotes(param));
 };
 
+var playing = false;
+
 var playNice = function (n) {
     "use strict";
+    
+    playing = true;
     
     var currentNote = 0, notes, playNote, letters;
     
@@ -117,26 +121,48 @@ var playNice = function (n) {
     
     playNote = function () {
         if (currentNote >= notes.length) {
+            playing = false;
             return;
         } else {
             if (notes[currentNote].key !== "rest") {
                 var sound = new Audio("res/piano/q/q" + notes[currentNote].key + "1.wav");
                 sound.play();
             }
-            console.log(notes[currentNote].duration);
+            //console.log(notes[currentNote].duration);
             setTimeout(playNote, 300 * 4 / notes[currentNote].duration);
             currentNote += 1;
         }
     };
     
-    setTimeout(playNote, 300);
+    setTimeout(playNote, 200);
 };
 
+/*
 var niceNotes = [
-    { key: "a", duration: 8},
-    { key: "a", duration: 8},
-    { key: "b", duration: 2},
-    { key: "c", duration: 4}
+    { key: "a", duration: 4},
+    { key: "a", duration: 2},
+    { key: "a", duration: 4}
 ];
+*/
+var niceNotes = [];
 
+renderNice(niceNotes);
+//playNice(niceNotes);
 
+$("#play").click(function () {
+    "use strict";
+    playNice(niceNotes);
+});
+
+$("#clear").click(function () {
+    "use strict";
+    niceNotes = [];
+    renderNice(niceNotes);
+});
+
+$("#editing > span").click(function () {
+    "use strict";
+    console.log(this.id);
+    niceNotes.push({key: this.id, duration: 4});
+    renderNice(niceNotes);
+});

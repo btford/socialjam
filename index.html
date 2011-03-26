@@ -8,21 +8,39 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="stylesheet" href="css/style.css?v=1">
+  
+  <audio preload="auto">
+      <source src="res/piano/q/qA1.wav" type="audio/wav" />
+      Your browser does not support the audio element.
+  </audio>
+  
 </head>
 
 <body>
     <div id="container">
     <header>
         <h1>Social Jam</h1>
+        <span>You can compose music with your bro</span>
     </header>
     <div id="main" role="main">
         <canvas id="can" width="700" height="100"></canvas>
+        <div id="editing">
+            <span id="c">C</span>
+            <span id="d">D</span>
+            <span id="e">E</span>
+            <span id="f">F</span>
+            <span id="g">G</span>
+            <span id="a">A</span>
+            <span id="b">B</span>
+        </div>
         <div id="controls">
-            
+            <span id="play">PLAY</span>
+            <span id="stop">STOP</span>
+            <span id="clear">CLEAR</span>
         </div>
     </div>
     <footer>
-        Copyright or something
+        Copyright 2011 Brian Ford, Sharon Lee, Andrew Robinson, Kyle Summers
     </footer>
     </div>
     
