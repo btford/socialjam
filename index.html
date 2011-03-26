@@ -7,24 +7,36 @@
   <title>Social Jam</title>
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="stylesheet" href="css/style.css?v=1">
   
-  <audio preload="auto">
-      <source src="res/piano/q/qA1.wav" type="audio/wav" />
-      Your browser does not support the audio element.
-  </audio>
+  <link rel="stylesheet" href="css/style.css?v=1">
   
 </head>
 
 <body>
+	<div id="fb-root"></div>
+	
+	  <script>
+		window.fbAsyncInit = function() {
+		FB.init({
+		appId  : '142388952486760',
+		status : true, // check login status
+		cookie : true, // enable cookies to allow the server to access the session
+		xfbml  : true // parse XFBML
+		});
+		FB.Canvas.setAutoResize(); //set size according to iframe content size
+		};
+		(function() {
+		var e = document.createElement('script');
+		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+		e.async = true;
+		document.getElementById('fb-root').appendChild(e);
+		}());
+  </script>
+	
     <div id="container">
-    <header>
-        <h1>Social Jam</h1>
-        <span>You can compose music with your bro</span>
-    </header>
     <div id="main" role="main">
-        <canvas id="can" width="700" height="100"></canvas>
-        <canvas id="broCan" width="700" height="100"></canvas>
+        <canvas id="can" width="560" height="100"></canvas>
+        <canvas id="broCan" width="560" height="100"></canvas>
         <div id="editing">
             <span id="c">C</span>
             <span id="d">D</span>
@@ -33,7 +45,10 @@
             <span id="g">G</span>
             <span id="a">A</span>
             <span id="b">B</span>
-            <span id="rest">REST</span>
+            <select id="instrument">
+                <option value="piano">Piano</option>
+                <option value="violin">Violin</option>
+            </select>
         </div>
         <div id="controls">
             <span id="play">PLAY</span>
@@ -42,7 +57,8 @@
         </div>
     </div>
     <footer>
-        Copyright 2011 Brian Ford, Sharon Lee, Andrew Robinson, Kyle Summers
+        Copyright 2011 Brian Ford, Sharon Lee, Andrew Robinson, Kyle Summers<br /><br />
+        <span><em>You can compose music with your bro</em></span>
     </footer>
     </div>
     

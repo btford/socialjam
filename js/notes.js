@@ -7,7 +7,7 @@
 var Notes = function (canvas) {
     "use strict";
 
-    var canvasWidth = canvas.width -10;
+    var canvasWidth = canvas.width - 10;
 
     // Private
     var durationIntToStr = function (num) {

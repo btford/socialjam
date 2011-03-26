@@ -35,7 +35,7 @@ var sendMyMusic = function () {
         "user": userId,
         "timestamp": timestamp,
         "content": myNotes.getNotes(),
-        "instrument": myNotes.setInstrument()
+        "instrument": myNotes.getInstrument()
     };
 
     $.ajax({
@@ -79,7 +79,7 @@ var getMusic = function () {
 
                 timestamp = parsedData.timestamp;
                 broNotes.setNotes(parsedData.content);
-                broNotes.setInstrument(parsedData.instrument);
+                broNotes.setInstrument(parsedData.instrument || "piano");
             }
             
             setTimeout(getMusic, 100);
@@ -158,6 +158,11 @@ $("#editing > span").click(function () {
     "use strict";
     myNotes.addNote({key: this.id, duration: 4});
     sendMyMusic();
+});
+
+$("#instrument").change(function () {
+    "use strict";
+    myNotes.setInstrument(this.value);
 });
 
 // start the magic
