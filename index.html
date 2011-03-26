@@ -35,8 +35,12 @@
 	
     <div id="container">
     <div id="main" role="main">
-        <canvas id="can" width="560" height="100"></canvas>
-        <canvas id="broCan" width="560" height="100"></canvas>
+    	<dl id="nameTags">
+			<dd id="nameAdd"><a href="#"><span id="nameA"></span></a></dd>
+			<dd id="nameBdd"><a href="#"><span id="nameB"></span></a></dd>
+		</dl>
+        <canvas id="can" width="560" height="100"></canvas><div class="av" id="av1"><a href="#"><span id="av1txt">&nbsp;</span></a></div>
+        <canvas id="broCan" width="560" height="100"></canvas><div class="av" id="av2"><a href="#"><span id="av2txt">&nbsp;</span></a></div>
         <div id="editing">
             <span id="c">C</span>
             <span id="d">D</span>
@@ -45,6 +49,7 @@
             <span id="g">G</span>
             <span id="a">A</span>
             <span id="b">B</span>
+			<span id="rest">Rest</span>
             <select id="instrument">
                 <option value="piano">Piano</option>
                 <option value="guitar">Guitar</option>
@@ -71,9 +76,8 @@
     
     <!-- My notes/vexflow API -->
     <script src="js/notes.js"></script>
-    
-    <script src="js/main.js"></script>
     <script src="js/preload.js"></script>
     
+    <script src="js/main.js"></script>
 </body>
 </html>

@@ -172,6 +172,10 @@ h1 {
     font-size: 3em;
 }
 
+#editing, #controls {
+	text-align: center;
+}
+
 #controls span {
     background-color: gray;
     display: inline-block;
@@ -206,6 +210,8 @@ h1 {
 
 
 
+
+
 /**
  * Non-semantic helper classes: please define your styles before this section.
  */
@@ -234,7 +240,145 @@ h1 {
 /* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
 .clearfix { zoom: 1; }
 
+body {
+	overflow: hidden;
+}
 
+#av1 {
+	position: absolute;
+	right: 77px;
+	top: 210px;
+}
+
+#av2 {
+	position: absolute;
+	right: 77px;
+	top: 315px;
+}
+
+.av a {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	text-decoration: none;
+}
+
+.av {
+	background: url('http://andrewbrobinson.com/sj/images/avatar.png');
+	height: 50px;
+	width: 50px;
+	position: relative;
+}
+
+.av a span{
+	display: none;
+}
+
+.av a:hover span{
+	display: block;
+	text-indent: 0;
+	vertical-align: top;
+	color: #FFFFFF;
+	background-color: #282828;
+	font-weight: bold;
+	position: absolute;
+	right: 0;
+	bottom: 100%;
+	margin: 0;
+	padding: 5px;
+	width: 125px;
+	text-align: right;
+}
+
+#editing span {
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	color: #efe100;
+	border: 2px solid #a40000;
+	text-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2);
+}
+
+#controls {
+	color: #efe100;
+}
+
+#controls span {
+	border: 2px solid #a40000;
+	text-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2);
+}
+
+#controls span a, #controls span a:active, #controls span a:visited {
+	text-decoration: none;
+	text-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2);
+	color: #efe100;
+	-webkit-tap-highlight-color: #efe100;
+}
+
+html, body {
+	overflow: hidden;
+}
+
+body {
+	background-image:url('http://andrewbrobinson.com/sj/images/front.png');
+	background-repeat: no-repeat;
+	background-color: #000;
+}
+
+#container {
+	margin-top: 175px;
+	text-align: left;
+	margin-left: 70px;
+	width: 620px;
+}
+
+#helpCont {
+	margin-top: 175px;
+	background-image: url('http://andrewbrobinson.com/sj/images/tutorial.png');
+	width: 720px;
+	height: 500px;
+	background-size: 95%;
+	background-repeat:no-repeat;
+}
+
+#backToJam {
+	position: relative;
+	top: 140px;
+	text-align: center;
+	font-size: 24px;
+	color: #FFF;
+}
+
+#mainCont {
+	margin-top: 225px;
+	text-align: center;
+	margin-left: 80px;
+	width: 620px;
+	font-size: 16px;
+}
+
+#instrument {
+	border: 2px solid #a40000;
+}
+
+footer {
+	margin-top: 15px;
+	color: #FFF;
+	text-align: center;
+	width: 100%;
+}
+
+
+header {
+	position: absolute;
+	right: 100px;
+	top: 50px;
+	font-size: 18px;
+	color: #FFF;
+}
+
+pre {
+	color: #FFF;
+}
 
 /**
  * Media queries for responsive design.
