@@ -21,13 +21,11 @@ var myNotes = new Notes(canvas);
 $("#play").click(function () {
     "use strict";
     myNotes.play();
-    broNotes.play();
 });
 
 $("#clear").click(function () {
     "use strict";
     myNotes.clear();
-    sendMyMusic();
 });
 
 $("#editing > span").click(function () {

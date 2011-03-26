@@ -6,10 +6,8 @@
 
 var Notes = function (canvas) {
     "use strict";
-    
-    var SJM = {
-        'width': 600
-    };
+
+    var canvasWidth = canvas.width -10;
 
     // Private
     var durationIntToStr = function (num) {
@@ -26,6 +24,8 @@ var Notes = function (canvas) {
             return String(num);
         }
     };
+    
+    var instrument = "piano";
 
     var makeRenderableNotes = function (notes) {
         "use strict";
@@ -82,31 +82,48 @@ var Notes = function (canvas) {
         renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
 
         ctx = renderer.getContext();
-        stave = new Vex.Flow.Stave(10, 0, SJM.width);
+        stave = new Vex.Flow.Stave(10, 0, canvasWidth);
 
         ctx.clear();
         stave.addClef("treble").setContext(ctx).draw();
         stave.addTimeSignature("4/4").setContext(ctx).draw();
 
-        for (i = 0; i < param.length; i += 1) {
-            notes.push(new Vex.Flow.StaveNote({ keys: [param[i].key], duration: param[i].duration }));
-        }
         // Create a voice in 4/4
         voice = new Vex.Flow.Voice({
             num_beats: 4,
             beat_value: 4,
             resolution: Vex.Flow.RESOLUTION
         });
+        
+        voice.strict = false;
 
         // Add notes to voice
         voice.clearTickables(notes);
-        voice.addTickables(notes);
+
+        for (i = 0; i < param.length; i += 1) {
+            notes.push(new Vex.Flow.StaveNote({ keys: [param[i].key], duration: param[i].duration }));
+            
+            if(((i + 1) % 4) === 0) {
+                voice.addTickables(notes);
+                voice.addTickable( new Vex.Flow.BarNote() );
+                notes = [];
+            }
+        }
+        
+        if(notes.length > 0) {
+            voice.addTickables(notes);
+        }
 
         // Format and justify the notes to 500 pixels
-        formatter = new Vex.Flow.Formatter().joinVoices([voice]).format([voice], SJM.width);
-
+        formatter = new Vex.Flow.Formatter();
+        
+        formatter.joinVoices([voice]).format([voice], canvasWidth);
         // Render voice
         voice.draw(ctx, stave);
+        
+        console.log(voice);
+        //console.log(ctx);
+        //console.log(formatter);
     };
 
     var renderNice = function (param) {
@@ -130,7 +147,7 @@ var Notes = function (canvas) {
                 return;
             } else {
                 if (notes[currentNote].key !== "rest") {
-                    var src = "res/piano/q/q" + notes[currentNote].key.toUpperCase() + "1.wav";
+                    var src = "res/" + instrument + "/q/q" + notes[currentNote].key.toUpperCase() + "1.wav";
                     
                     var sound = new Audio(src);
                     sound.play();
@@ -176,6 +193,14 @@ var Notes = function (canvas) {
     
     that.play = function (newNotes) {
         playNice(niceNotes);
+    };
+    
+    that.setInstrument = function (ins) {
+        instrument = ins;
+    };
+    
+    that.getInstrument = function () {
+        return instrument;
     };
     
     that.render();

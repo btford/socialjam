@@ -34,7 +34,8 @@ var sendMyMusic = function () {
         "session": sessionId,
         "user": userId,
         "timestamp": timestamp,
-        "content": myNotes.getNotes()
+        "content": myNotes.getNotes(),
+        "instrument": myNotes.setInstrument()
     };
 
     $.ajax({
@@ -66,7 +67,11 @@ var getMusic = function () {
             if (data) {
                 var parsedData = $.parseJSON(data), i;
                 console.log(parsedData);
-
+                
+                if (typeof parsedData.content === "string") {
+                    parsedData.content = [];
+                }
+                
                 for (i = 0; i < parsedData.content.length; i += 1) {
                     parsedData.content[i].duration =
                         parseInt(parsedData.content[i].duration, 10);
@@ -74,6 +79,7 @@ var getMusic = function () {
 
                 timestamp = parsedData.timestamp;
                 broNotes.setNotes(parsedData.content);
+                broNotes.setInstrument(parsedData.instrument);
             }
             
             setTimeout(getMusic, 100);
@@ -96,6 +102,14 @@ var initMusic = function () {
             
             console.log(parsedData.data[0]);
             
+            if (typeof parsedData.data[0].content === "string") {
+                parsedData.data[0].content = [];
+            }
+            
+            if (typeof parsedData.data[1].content === "string") {
+                parsedData.data[1].content = [];
+            }
+            
             // parse strings to ints
             for (i = 0; i < parsedData.data[0].content.length; i += 1) {
                 parsedData.data[0].content[i].duration =
@@ -109,10 +123,14 @@ var initMusic = function () {
             
             if (parseInt(parsedData.data[0].userid, 10) === userId) {
                 myNotes.setNotes(parsedData.data[0].content);
+                myNotes.setInstrument(parsedData.data[0].instrument);
                 broNotes.setNotes(parsedData.data[1].content);
+                broNotes.setInstrument(parsedData.data[1].instrument);
             } else {
                 myNotes.setNotes(parsedData.data[1].content);
+                myNotes.setInstrument(parsedData.data[1].instrument);
                 broNotes.setNotes(parsedData.data[0].content);
+                broNotes.setInstrument(parsedData.data[0].instrument);
             }
             
             timestamp = parsedData.timestamp;
