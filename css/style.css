@@ -165,10 +165,12 @@ a:hover { color: #036; }
 /**
  * Primary styles
  *
- * Author: 
+ * Author: Brian Ford
  */
 
-
+h1 {
+    font-size: 3em;
+}
 
 
 

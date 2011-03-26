@@ -4,7 +4,7 @@
 
 /*jslint white: true, onevar: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, browser: true, maxerr: 50, indent: 4 */
 
-/*globals $, Vex, console*/
+/*globals $, Vex, console, Audio*/
 
 // Social jam config
 var SJM = {
@@ -30,63 +30,6 @@ var durationIntToStr = function (num) {
 };
 
 var makeRenderableNotes = function (notes) {
-    "use strict";
-    var ren = [], someKey, someDuration, restDuration, totalDuration = 0, i;
-    
-    for (i = 0; i < notes.length; i += 1) {
-        
-        someKey = notes[i].key;
-        someDuration = notes[i].duration;
-        
-        console.log(someDuration);
-        
-        totalDuration += someDuration / 4;
-        
-        if (someKey === "rest") {
-            someKey = "b/4";
-            someDuration = durationIntToStr(someDuration) + "r";
-        } else {
-            someDuration = durationIntToStr(someDuration);
-        }
-        
-        ren.push({key: someKey, duration: someDuration});
-    }
-    
-    console.log(totalDuration);
-    
-    if (totalDuration < 4) {
-        restDuration = 4 - totalDuration;
-        console.log(restDuration);
-        
-        if (restDuration === 3) {
-            ren.push({key: "b/4", duration: "qr"});
-            ren.push({key: "b/4", duration: "hr"});
-        } else {
-            ren.push({key: "b/4", duration: (durationIntToStr(4 / restDuration) + "r")});
-        }
-    }
-    
-    return ren;
-};
-
-var niceNotes = [
-    { key: "c/5", duration: 4},
-    { key: "c/4", duration: 4},
-    { key: "c/4", duration: 4},
-    { key: "c/4", duration: 4}
-];
-
-var notes = [
-    { key: "c/4", duration: "q" },
-    { key: "d/5", duration: "8" },
-    { key: "d/4", duration: "8" },
-    { key: "b/4", duration: "qr" },
-    { key: "c/4", duration: "q" }
-];
-
-var notes2 = [
-    { key: "a/4", duration: "w" }
-];
 
 var render = function (param) {
     "use strict";
@@ -127,4 +70,38 @@ var renderNice = function (param) {
     return render(makeRenderableNotes(param));
 };
 
+var playNice = function (n) {
+    "use strict";
+    
+    var currentNote = 0, notes, playNote, letters;
+    
+    letters = ["A", "B", "C", "D"];
+    
+    notes = n;
+    
+    playNote = function () {
+        if (currentNote >= notes.length) {
+            return;
+        } else {
+            if (notes[currentNote].key !== "rest") {
+                var sound = new Audio("res/piano/q/q" + letters[currentNote] + "1.wav");
+                sound.play();
+            }
+            setTimeout(playNote, 300 * 4 / notes[currentNote].duration);
+            currentNote += 1;
+        }
+    };
+    playNote();
+};
+
+var niceNotes = [
+    { key: "c", duration: 4},
+    { key: "c", duration: 4},
+    { key: "c", duration: 4},
+    { key: "c", duration: 4}
+];
+
 renderNice(niceNotes);
+playNice(niceNotes);
+
+
