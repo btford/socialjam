@@ -1,7 +1,12 @@
+// notes.js
+// Brian Ford, btford@umich.edu
+// 03/26/11
 
+/*jslint white: true, onevar: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, browser: true, maxerr: 50, indent: 4 */
 
 var Notes = function (canvas) {
-
+    "use strict";
+    
     var SJM = {
         'width': 600
     };
@@ -118,10 +123,13 @@ var Notes = function (canvas) {
                 return;
             } else {
                 if (notes[currentNote].key !== "rest") {
-                    var sound = new Audio("res/piano/q/q" + notes[currentNote].key + "1.wav");
+                    var src = "res/piano/q/q" + notes[currentNote].key.toUpperCase() + "1.wav";
+                    
+                    var sound = new Audio(src);
                     sound.play();
+                    console.log(src);
                 }
-                //console.log(notes[currentNote].duration);
+
                 setTimeout(playNote, 300 * 4 / notes[currentNote].duration);
                 currentNote += 1;
             }
