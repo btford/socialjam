@@ -151,6 +151,15 @@ var Notes = function (canvas) {
         renderNice(niceNotes);
     }
     
+    that.getNotes = function () {
+        return niceNotes;
+    };
+    
+    that.setNotes = function (newNotes) {
+        niceNotes = newNotes;
+        that.render();
+    };
+    
     that.render();
     
     return that;
