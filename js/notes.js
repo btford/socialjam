@@ -42,6 +42,9 @@ var Notes = function (canvas) {
 
             if (someKey === "rest") {
                 someKey = "b/4";
+                if(someDuration === 1) {
+                    someKey = "d/5";
+                }
                 someDuration = durationIntToStr(someDuration) + "r";
             } else {
                 someKey = someKey + "/4";
@@ -56,9 +59,12 @@ var Notes = function (canvas) {
         if (totalDuration < 4) {
             restDuration = 4 - totalDuration;
             //console.log(restDuration);
-
-            if (restDuration === 3) {
+            if (restDuration === 4) {
+                ren.push({key: "d/5", duration: "wr"});
+            } else if (restDuration === 3) {
                 ren.push({key: "b/4", duration: "qr"});
+                ren.push({key: "b/4", duration: "hr"});
+            } else if (restDuration === 2) {
                 ren.push({key: "b/4", duration: "hr"});
             } else {
                 ren.push({key: "b/4", duration: (durationIntToStr(4 / restDuration) + "r")});
@@ -80,6 +86,7 @@ var Notes = function (canvas) {
 
         ctx.clear();
         stave.addClef("treble").setContext(ctx).draw();
+        stave.addTimeSignature("4/4").setContext(ctx).draw();
 
         for (i = 0; i < param.length; i += 1) {
             notes.push(new Vex.Flow.StaveNote({ keys: [param[i].key], duration: param[i].duration }));
