@@ -39,7 +39,7 @@ var makeRenderableNotes = function (notes) {
         
         console.log(someDuration);
         
-        totalDuration += someDuration / 4;
+        totalDuration += 4 / someDuration;
         
         if (someKey === "rest") {
             someKey = "b/4";
@@ -113,8 +113,6 @@ var playNice = function (n) {
     
     var currentNote = 0, notes, playNote, letters;
     
-    letters = ["A", "B", "C", "D"];
-    
     notes = n;
     
     playNote = function () {
@@ -122,24 +120,23 @@ var playNice = function (n) {
             return;
         } else {
             if (notes[currentNote].key !== "rest") {
-                var sound = new Audio("res/piano/q/q" + letters[currentNote] + "1.wav");
+                var sound = new Audio("res/piano/q/q" + notes[currentNote].key + "1.wav");
                 sound.play();
             }
+            console.log(notes[currentNote].duration);
             setTimeout(playNote, 300 * 4 / notes[currentNote].duration);
             currentNote += 1;
         }
     };
-    playNote();
+    
+    setTimeout(playNote, 300);
 };
 
 var niceNotes = [
-    { key: "c", duration: 4},
-    { key: "c", duration: 4},
-    { key: "c", duration: 4},
+    { key: "a", duration: 8},
+    { key: "a", duration: 8},
+    { key: "b", duration: 2},
     { key: "c", duration: 4}
 ];
-
-renderNice(niceNotes);
-playNice(niceNotes);
 
 
