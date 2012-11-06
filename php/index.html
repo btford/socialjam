@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Social Jam</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+  <link rel="stylesheet" href="css/style.css?v=1">
+  
+</head>
+
+<body>
+	<div id="fb-root"></div>
+	
+	  <script>
+		window.fbAsyncInit = function() {
+		FB.init({
+		appId  : '<APP ID HERE>',
+		status : true, // check login status
+		cookie : true, // enable cookies to allow the server to access the session
+		xfbml  : true // parse XFBML
+		});
+		FB.Canvas.setAutoResize(); //set size according to iframe content size
+		};
+		(function() {
+		var e = document.createElement('script');
+		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+		e.async = true;
+		document.getElementById('fb-root').appendChild(e);
+		}());
+  </script>
+	
+    <div id="container">
+    <div id="main" role="main">
+    	<dl id="nameTags">
+			<dd id="nameAdd"><a href="#"><span id="nameA"></span></a></dd>
+			<dd id="nameBdd"><a href="#"><span id="nameB"></span></a></dd>
+		</dl>
+        <canvas id="can" width="560" height="100"></canvas><div class="av" id="av1"><a href="#"><span id="av1txt">&nbsp;</span></a></div>
+        <canvas id="broCan" width="560" height="100"></canvas><div class="av" id="av2"><a href="#"><span id="av2txt">&nbsp;</span></a></div>
+        <div id="editing">
+            <span id="c">C</span>
+            <span id="d">D</span>
+            <span id="e">E</span>
+            <span id="f">F</span>
+            <span id="g">G</span>
+            <span id="a">A</span>
+            <span id="b">B</span>
+			<span id="rest">Rest</span>
+            <select id="instrument">
+                <option value="piano">Piano</option>
+                <option value="guitar">Guitar</option>
+                <option value="snare">Snare Drum</option>
+                <option value="violin">Violin</option>
+            </select>
+        </div>
+        <div id="controls">
+            <span id="play">PLAY</span>
+            <span id="clear">CLEAR</span>
+            <span><a href="help.html">HELP</a></span>
+            <span><a href="main.php">HOME</a></span>
+        </div>
+    </div>
+    <footer>
+        Copyright 2011 Brian Ford, Sharon Lee, Andrew Robinson, Kyle Summers<br /><br />
+        <span><em>You can compose music with your bro</em></span>
+    </footer>
+    </div>
+    
+    <script src="js/libs/jquery-1.5.1.min.js"></script>
+    <!-- NOTE: we might not need raphael -->
+    <script src="js/libs/raphael-min.js"></script>
+    <script src="js/libs/vexflow-dbg.js"></script>
+    
+    <!-- My notes/vexflow API -->
+    <script src="js/notes.js"></script>
+    <script src="js/preload.js"></script>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
